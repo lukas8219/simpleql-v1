@@ -29,7 +29,6 @@ export class QueryBuilder {
     }
 
     join(relation) {
-        this.join(relation);
         return this;
     }
 
@@ -89,7 +88,7 @@ export class QueryBuilder {
             query.push(this._sanitizeWhere());
         }
 
-        return query.join(' ');
+        return `${query.join(' ')};`;
     }
 
 }

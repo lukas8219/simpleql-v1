@@ -13,13 +13,13 @@ describe('select()', function () {
             .select(['id'])
             .build();
 
-        assert.equal(query, 'SELECT "id" FROM "users"');
+        assert.equal(query, 'SELECT "id" FROM "users";');
     });
 
     it('should return all columns, if SELECT was not called', function () {
         const query = QueryBuilder.newBuilder(UserTestModel)
             .build();
 
-        assert.equal(query, 'SELECT "id", "name", "email", "organizationId" FROM "users"')
+        assert.equal(query, 'SELECT "id", "name", "email", "organizationId" FROM "users";')
     });
 });

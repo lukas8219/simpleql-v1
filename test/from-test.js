@@ -17,7 +17,7 @@ describe('from()', function () {
         })
 
         it('should create correct FROM clause', function () {
-            assert.equal(true, QueryBuilder.newBuilder().from(UserTestModel).build().endsWith(`FROM "users"`));
+            assert.match(QueryBuilder.newBuilder().from(UserTestModel).build(), /FROM "users"/)
         })
 
         it('should accept Model class', function () {
@@ -34,7 +34,7 @@ describe('from()', function () {
         })
 
         it('should create correct FROM clause', function () {
-            assert.equal(true, QueryBuilder.newBuilder().from("users").build().endsWith(`FROM "users"`));
+            assert.match(QueryBuilder.newBuilder().from("users").build(), /FROM "users"/)
         })
 
         it('should accept table name', function () {

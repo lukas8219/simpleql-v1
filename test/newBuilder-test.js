@@ -16,7 +16,7 @@ describe('newBuilder()', function () {
 
         it('should create correct FROM clause', function () {
             const query = QueryBuilder.newBuilder(UserTestModel).build();
-            assert.equal(true, query.endsWith('FROM "users"'))
+            assert.match(query, /FROM "users"/)
         })
 
         it('should throw error if Model is not on registry (MODEL)', function () {
@@ -34,7 +34,7 @@ describe('newBuilder()', function () {
 
         it('should create correct FROM clause', function () {
             const query = QueryBuilder.newBuilder("users").build();
-            assert.equal(true, query.endsWith('FROM "users"'))
+            assert.match(query, /FROM "users"/)
         })
 
         it('should throw error if Model is not on registry (TABLE)', function () {

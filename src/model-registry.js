@@ -14,14 +14,20 @@ export class ModelRegistry {
     }
 
     static getTableName(model) {
-        if (model.prototype instanceof Model) { // inheritance???????????
-            return this.models.get(model)
-        }
-        for (const [k, v] of this.models.entries()) {
-            if (model === v.getTableName()) {
-                return v;
+
+        if (typeof model === 'string') {
+            for (const [k, v] of this.models.entries()) {
+                if (model === v.getTableName()) {
+                    return v;
+                }
             }
         }
+
+        if (model.prototype && model.prototype instanceof Model) {
+            return this.models.get(model)
+        }
+
+        throw new Error(`${model} not found on registry`)
     }
 
 }

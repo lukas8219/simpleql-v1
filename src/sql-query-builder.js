@@ -2,12 +2,17 @@ import { ModelRegistry } from './model-registry.js';
 
 export class QueryBuilder {
 
-    constructor(props) {
-        for (const k in props) {
-            this[k] = props[k];
-        }
+    constructor() {
         this.operation = 'SELECT';
         this.join = [];
+    }
+
+    static newBuilder(model) {
+        const instance = new this();
+        if (model) {
+            return instance.from(model);
+        }
+        return instance;
     }
 
     from(table) {
@@ -50,7 +55,7 @@ export class QueryBuilder {
             //TODO - handle different where operators.
             where.push(`"${k}" = '${v}'`)
         }
-        return where.join(', ')
+        return where.join(' AND ')
     }
 
     _sanitezeFields() {
@@ -79,8 +84,10 @@ export class QueryBuilder {
         query.push('FROM');
         query.push(this._sanitizedFrom());
 
-        query.push('WHERE');
-        query.push(this._sanitizeWhere());
+        if (this.predicate) {
+            query.push('WHERE');
+            query.push(this._sanitizeWhere());
+        }
 
         return query.join(' ');
     }
